@@ -1,3 +1,20 @@
 [gd_scene format=3 uid="uid://b0f4cnnrcc6nl"]
 
-[node name="Node2D" type="Node2D" unique_id=1052697337]
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xrwy"]
+radius = 19.026299
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4h2pt"]
+radius = 16.0
+
+[node name="hydroxl" type="Node2D" unique_id=1052697337]
+
+[node name="oxygen" type="Area2D" parent="." unique_id=1782815216]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="oxygen" unique_id=1783018575]
+shape = SubResource("CircleShape2D_7xrwy")
+
+[node name="hydrogen4" type="Area2D" parent="." unique_id=217142393]
+position = Vector2(35, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogen4" unique_id=6164762]
+shape = SubResource("CircleShape2D_4h2pt")

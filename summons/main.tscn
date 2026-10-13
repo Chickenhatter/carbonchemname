@@ -13,3 +13,13 @@ script = ExtResource("1_e3a7m")
 [node name="Icon" type="Sprite2D" parent="Node2D/main" unique_id=1573529540]
 position = Vector2(67, 361)
 texture = ExtResource("2_yuh74")
+
+[node name="whereplace" type="Node2D" parent="Node2D/main" unique_id=405045454]
+position = Vector2(602, 295)
+
+[node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
+
+[node name="TextEdit" type="TextEdit" parent="Node2D/characterui" unique_id=1106493848]
+offset_right = 115.0
+offset_bottom = 36.0
+text = "jh"

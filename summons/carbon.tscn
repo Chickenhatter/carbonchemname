@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bv88lpxdwlg1n"]
 
 [ext_resource type="Script" uid="uid://ck51rdoijplih" path="res://code/carbonnormal.gd" id="1_vnuhl"]
+[ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="1_w5104"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vnuhl"]
 radius = 26.0
@@ -14,6 +15,13 @@ radius = 16.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="carbon" unique_id=1863805811]
 shape = SubResource("CircleShape2D_vnuhl")
+
+[node name="Sprite2D" type="Sprite2D" parent="carbon" unique_id=1633411443]
+position = Vector2(1.0000005, -4.172325e-07)
+scale = Vector2(0.13020833, 0.13020834)
+texture = ExtResource("1_w5104")
+
+[node name="Node2D" type="Node2D" parent="carbon" unique_id=491940572]
 
 [node name="hydrogens" type="Node2D" parent="." unique_id=1404926249]
 
