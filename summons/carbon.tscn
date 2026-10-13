@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bv88lpxdwlg1n"]
+
+[ext_resource type="Script" uid="uid://ck51rdoijplih" path="res://code/carbonnormal.gd" id="1_vnuhl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vnuhl"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xrwy"]
+radius = 16.0
+
+[node name="carboni" type="Node2D" unique_id=304733575]
+
+[node name="carbon" type="Area2D" parent="." unique_id=1490497351]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="carbon" unique_id=1863805811]
+shape = SubResource("CircleShape2D_vnuhl")
+
+[node name="hydrogens" type="Node2D" parent="." unique_id=1404926249]
+
+[node name="hydrogen1" type="Area2D" parent="hydrogens" unique_id=1918489278]
+position = Vector2(0, -43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen1" unique_id=44591437]
+shape = SubResource("CircleShape2D_7xrwy")
+
+[node name="hydrogen2" type="Area2D" parent="hydrogens" unique_id=1780687739]
+position = Vector2(-43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen2" unique_id=553349521]
+shape = SubResource("CircleShape2D_7xrwy")
+
+[node name="hydrogen3" type="Area2D" parent="hydrogens" unique_id=1701994157]
+position = Vector2(0, 43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen3" unique_id=573285137]
+shape = SubResource("CircleShape2D_7xrwy")
+
+[node name="hydrogen4" type="Area2D" parent="hydrogens" unique_id=3348610]
+position = Vector2(43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen4" unique_id=1066984940]
+shape = SubResource("CircleShape2D_7xrwy")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1010787562]
+script = ExtResource("1_vnuhl")
+
+[connection signal="area_entered" from="hydrogens/hydrogen1" to="Node2D" method="_on_hydrogen_1_area_entered"]
+[connection signal="area_exited" from="hydrogens/hydrogen1" to="Node2D" method="_on_hydrogen_1_area_exited"]
+[connection signal="area_entered" from="hydrogens/hydrogen2" to="Node2D" method="_on_hydrogen_2_area_entered"]
+[connection signal="area_exited" from="hydrogens/hydrogen2" to="Node2D" method="_on_hydrogen_2_area_exited"]
+[connection signal="area_entered" from="hydrogens/hydrogen3" to="Node2D" method="_on_hydrogen_3_area_entered"]
+[connection signal="area_exited" from="hydrogens/hydrogen3" to="Node2D" method="_on_hydrogen_3_area_exited"]
+[connection signal="area_entered" from="hydrogens/hydrogen4" to="Node2D" method="_on_hydrogen_4_area_entered"]
+[connection signal="area_exited" from="hydrogens/hydrogen4" to="Node2D" method="_on_hydrogen_4_area_exited"]
