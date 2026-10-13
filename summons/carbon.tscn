@@ -17,11 +17,13 @@ radius = 16.0
 shape = SubResource("CircleShape2D_vnuhl")
 
 [node name="Sprite2D" type="Sprite2D" parent="carbon" unique_id=1633411443]
-position = Vector2(1.0000005, -4.172325e-07)
-scale = Vector2(0.13020833, 0.13020834)
+position = Vector2(-9.536743e-07, 2.3841858e-07)
+scale = Vector2(0.15333332, 0.14999999)
 texture = ExtResource("1_w5104")
 
 [node name="Node2D" type="Node2D" parent="carbon" unique_id=491940572]
+modulate = Color(0.012617188, 0.012617188, 0.012617188, 1)
+self_modulate = Color(0, 0, 0, 1)
 
 [node name="hydrogens" type="Node2D" parent="." unique_id=1404926249]
 

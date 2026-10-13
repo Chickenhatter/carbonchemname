@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cgckor6e1u7dr"]
 
+[ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="1_1qdpj"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_37otx"]
 radius = 16.0
 
@@ -11,13 +13,13 @@ radius = 26.0
 [node name="hydrogens" type="Node2D" parent="." unique_id=1427393267]
 
 [node name="hydrogen1" type="Area2D" parent="hydrogens" unique_id=956971440]
-position = Vector2(35, -78)
+position = Vector2(61, -105)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen1" unique_id=1120533774]
 shape = SubResource("CircleShape2D_37otx")
 
 [node name="hydrogen2" type="Area2D" parent="hydrogens" unique_id=1852235036]
-position = Vector2(-43, 0)
+position = Vector2(-44, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen2" unique_id=638970162]
 shape = SubResource("CircleShape2D_37otx")
@@ -29,7 +31,7 @@ position = Vector2(0, 43)
 shape = SubResource("CircleShape2D_37otx")
 
 [node name="hydrogen4" type="Area2D" parent="hydrogens" unique_id=1053010549]
-position = Vector2(78, -34)
+position = Vector2(102, -61)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen4" unique_id=331215500]
 shape = SubResource("CircleShape2D_37otx")
@@ -42,7 +44,17 @@ shape = SubResource("CircleShape2D_37otx")
 shape = SubResource("CircleShape2D_1qdpj")
 
 [node name="carbon" type="Area2D" parent="." unique_id=880969299]
-position = Vector2(35, -35)
+position = Vector2(61, -61)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="carbon" unique_id=885532769]
 shape = SubResource("CircleShape2D_1qdpj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=391587712]
+position = Vector2(-9.536743e-07, 2.3841858e-07)
+scale = Vector2(0.15333332, 0.14999999)
+texture = ExtResource("1_1qdpj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1224803237]
+position = Vector2(61, -61)
+scale = Vector2(0.15333332, 0.14999999)
+texture = ExtResource("1_1qdpj")

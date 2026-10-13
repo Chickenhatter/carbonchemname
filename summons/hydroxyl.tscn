@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b0f4cnnrcc6nl"]
 
+[ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="1_fg3m3"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_7xrwy"]
 radius = 19.026299
 
@@ -18,3 +20,9 @@ position = Vector2(35, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogen4" unique_id=6164762]
 shape = SubResource("CircleShape2D_4h2pt")
+
+[node name="Circle" type="Sprite2D" parent="." unique_id=868272660]
+modulate = Color(0.6156863, 0.21960784, 0.05882353, 1)
+self_modulate = Color(13.431439, 0, 2.9506733, 1)
+scale = Vector2(0.068, 0.068)
+texture = ExtResource("1_fg3m3")
