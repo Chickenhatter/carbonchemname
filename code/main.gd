@@ -10,6 +10,15 @@ var random_place = 0
 var chainoff_length = 0
 var offshoots = []
 var offpos = []
+var nome = ""
+
+var ethyl = []
+var methyl = []
+var butyl = []
+var propyl = []
+var pentyl = []
+
+var offshootings = true
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -133,15 +142,45 @@ func newmolecule():
 
 
 func decypher():
-	if hydroxyl_exists == true:
-		pass
+	if offshootings != false:
+		for i in range(0,len(offshoots)):
+			# random_place,chainoff_length
+			if offshoots[i][1] == 1:
+				methyl += random_place
+		nome += 'ly'
+	
+	
+	nome += number_prefix(chain_length)
+	if hydroxyl_exists != false:
+		if double_bond != false:
+			nome += '-'
+			nome += double_bond
+			nome += '-en-1-ol'
+		else:
+			nome += 'anol'
+	elif double_bond != false:
+		nome += 'ene'
+	else:
+		nome += 'ane'
 
 func number_prefix(a):
 	if a == 1:
 		return "meth"
-	if a == 2:
+	elif a == 2:
 		return "eth"
-	if a == 3:
+	elif a == 3:
 		return "prop"
-	if a == 4:
-		return "bute"
+	elif a == 4:
+		return "but"
+	elif a == 5:
+		return "pent"
+	elif a == 6:
+		return "hex"
+	elif a == 7:
+		return "hept"
+	elif a == 8:
+		return "oct"
+	elif a == 9:
+		return "non"
+	elif a == 10:
+		return "dec"
