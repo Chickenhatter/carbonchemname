@@ -26,3 +26,4 @@ text = "jh"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=960486425]
 position = Vector2(688, 329)
+zoom = Vector2(0.53, 0.53)

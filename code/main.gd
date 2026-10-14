@@ -9,6 +9,7 @@ var listplace = []
 var random_place = 0
 var chainoff_length = 0
 var offshoots = []
+var offpos = []
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -17,14 +18,13 @@ const hydroxl = preload('res://summons/hydroxyl.tscn')
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	mainchain()
+	newmolecule()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 func mainchain():
-	direction = randi_range(1,4)
 	chain_length = randi_range(1,10)
 	double_bond = randi_range(1,9)
 	hydroxyl_exists = randi_range(1,1)
@@ -64,20 +64,84 @@ func mainchain():
 		var thing = hydroxl.instantiate()
 		thing.global_position = Vector2(-62,0)
 		placechild.add_child(thing)
-	print(listplace)
-	listplace = []
-	await get_tree().create_timer(5).timeout
+		hydroxyl_exists = true
+
+func smallerchains():
+	if chain_length > 2:
+		random_place = randi_range(1,chain_length-2)
+		chainoff_length = randi_range(1,(((chain_length-1)/(2))))
+		offshoots += [[random_place,chainoff_length]]
+		place = listplace[random_place][0]
+		plyce = listplace[random_place][1]
+		offpos += [random_place]
+		if (double_bond-1) > random_place:
+			if offpos.count(random_place) == 0:
+				for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					plyce = -(i*86)
+					print(Vector2(place,plyce))
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+			elif offpos.count(random_place) == 1:
+				for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					plyce = (i*86)
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+		
+		elif (double_bond-1) == random_place:
+			for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					plyce = (i*86)
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+		elif (double_bond) == random_place:
+			for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					place += 86
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+			
+		else:
+			if offpos.count(random_place) == 0:
+				for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					place += 86
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+			elif offpos.count(random_place) == 1:
+				for i in range(1,chainoff_length+1):
+					var thing = carbon.instantiate()
+					place -= 86
+					thing.global_position = Vector2(place,plyce)
+					placechild.add_child(thing)
+					offshoots +=  [[random_place+1,chainoff_length]]
+
+
+func newmolecule():
 	for child in placechild.get_children():
 		child.queue_free()
 	mainchain()
+	for i in range(1,3):
+		smallerchains()
+	decypher()
 
-func smallerchains():
-	random_place = randi_range(1,chain_length-2)
-	chainoff_length = randi_range(1,(((chain_length-1)/(2))))
-	offshoots += [[random_place,chainoff_length]]
-	place = listplace[random_place][0]
-	plyce = listplace[random_place][1]
-	for i in chain_length:
-		if (double_bond-1) > random_place:
-			
-	
+
+func decypher():
+	if hydroxyl_exists == true:
+		pass
+
+func number_prefix(a):
+	if a == 1:
+		return "meth"
+	if a == 2:
+		return "eth"
+	if a == 3:
+		return "prop"
+	if a == 4:
+		return "bute"
