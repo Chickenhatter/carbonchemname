@@ -13,19 +13,19 @@ func _process(delta: float) -> void:
 
 func _on_hydrogen_1_area_entered(area: Area2D) -> void:
 	if area.name == "carbon":
-		pass
+		$"../hydrogens/hydrogen1/hydrogensprite".play('none')
 
 
 func _on_hydrogen_2_area_entered(area: Area2D) -> void:
 	if area.name == "carbon":
-		pass
+		$"../hydrogens/hydrogen2/hydrogensprite".play('none')
 
 
 func _on_hydrogen_3_area_entered(area: Area2D) -> void:
 	if area.name == "carbon":
-		pass
+		$"../hydrogens/hydrogen3/hydrogensprite".play('none')
 
 
 func _on_hydrogen_4_area_entered(area: Area2D) -> void:
 	if area.name == "carbon":
-		pass
+		$"../hydrogens/hydrogen4/hydrogensprite".play('none')

@@ -1,9 +1,29 @@
 [gd_scene format=3 uid="uid://cgckor6e1u7dr"]
 
 [ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="1_1qdpj"]
+[ext_resource type="Script" uid="uid://cxdu5a6xui10b" path="res://code/alkene.gd" id="1_5islj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37otx"]
-radius = 16.0
+radius = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7xrwy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1qdpj")
+}],
+"loop": 1,
+"name": &"hydrogen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"none",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1qdpj"]
 radius = 26.0
@@ -11,30 +31,59 @@ radius = 26.0
 [node name="Node2D" type="Node2D" unique_id=494230564]
 
 [node name="hydrogens" type="Node2D" parent="." unique_id=1427393267]
+script = ExtResource("1_5islj")
 
 [node name="hydrogen1" type="Area2D" parent="hydrogens" unique_id=956971440]
 position = Vector2(61, -105)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen1" unique_id=1120533774]
+position = Vector2(0, -16)
 shape = SubResource("CircleShape2D_37otx")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen1" unique_id=421791890]
+position = Vector2(0, -15.999999)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_7xrwy")
+animation = &"hydrogen"
 
 [node name="hydrogen2" type="Area2D" parent="hydrogens" unique_id=1852235036]
 position = Vector2(-44, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen2" unique_id=638970162]
+position = Vector2(-17, 0)
 shape = SubResource("CircleShape2D_37otx")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen2" unique_id=96850749]
+position = Vector2(-16.999998, -1.9073486e-06)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_7xrwy")
+animation = &"hydrogen"
 
 [node name="hydrogen3" type="Area2D" parent="hydrogens" unique_id=1267109694]
 position = Vector2(0, 43)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen3" unique_id=2011125468]
+position = Vector2(0, 17)
 shape = SubResource("CircleShape2D_37otx")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen3" unique_id=747237766]
+position = Vector2(0, 16.999996)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_7xrwy")
+animation = &"hydrogen"
 
 [node name="hydrogen4" type="Area2D" parent="hydrogens" unique_id=1053010549]
 position = Vector2(102, -61)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen4" unique_id=331215500]
+position = Vector2(20, 0)
 shape = SubResource("CircleShape2D_37otx")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen4" unique_id=1455823174]
+position = Vector2(19.999998, 0)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_7xrwy")
+animation = &"hydrogen"
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1976246208]
 
@@ -50,11 +99,18 @@ position = Vector2(61, -61)
 shape = SubResource("CircleShape2D_1qdpj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=391587712]
+self_modulate = Color(0.12636636, 0.12636636, 0.12636636, 1)
 position = Vector2(-9.536743e-07, 2.3841858e-07)
 scale = Vector2(0.15333332, 0.14999999)
 texture = ExtResource("1_1qdpj")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1224803237]
-position = Vector2(61, -61)
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=746209032]
+self_modulate = Color(0.12636636, 0.12636636, 0.12636636, 1)
+position = Vector2(61.000004, -60.999996)
 scale = Vector2(0.15333332, 0.14999999)
 texture = ExtResource("1_1qdpj")
+
+[connection signal="area_entered" from="hydrogens/hydrogen1" to="hydrogens" method="_on_hydrogen_1_area_entered"]
+[connection signal="area_entered" from="hydrogens/hydrogen2" to="hydrogens" method="_on_hydrogen_2_area_entered"]
+[connection signal="area_entered" from="hydrogens/hydrogen3" to="hydrogens" method="_on_hydrogen_3_area_entered"]
+[connection signal="area_entered" from="hydrogens/hydrogen4" to="hydrogens" method="_on_hydrogen_4_area_entered"]
