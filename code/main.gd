@@ -22,8 +22,9 @@ var butyl = []
 var propyl = []
 var pentyl = []
 
-var offshootings = true
+var offshootings = 0
 var hydroxyl = true
+var ene = false
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -38,9 +39,45 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func variablereset():
+	direction = 0
+	chain_length = 0
+	double_bond = 0
+	hydroxyl_exists = 0
+	place = 0
+	plyce = 0
+	listplace = []
+	random_place = 0
+	chainoff_length = 0
+	offshoots = []
+	offpos = []
+	nome = ""
+	hydroxyl_is_here = false
+	ene_is_here = false
+	offshoot_is_here = false
+	ethyl = []
+	methyl = []
+	butyl = []
+	propyl = []
+	pentyl = []
+
+func newmolecule():
+	for child in placechild.get_children():
+		child.queue_free()
+	mainchain()
+	if hydroxyl == true:
+		hydroxsummon()
+	if offshootings > 0:
+		
+		for i in range((randi_range(0,offshootings)),offshootings):
+			smallerchains()
+	decypher()
+
 func mainchain():
 	chain_length = randi_range(1,10)
 	double_bond = randi_range(1,9)
+	if ene == false:
+		double_bond += 100
 	print('chain_length:',chain_length)
 	print('double_bond:',double_bond)
 	if double_bond < chain_length:
@@ -73,7 +110,6 @@ func mainchain():
 			listplace += [[place,0]]
 			thing.global_position = Vector2(place,0)
 			placechild.add_child(thing)
-
 func smallerchains():
 	if chain_length > 2:
 		offshoot_is_here = true
@@ -129,19 +165,6 @@ func smallerchains():
 					place -= 86
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-
-
-func newmolecule():
-	for child in placechild.get_children():
-		child.queue_free()
-	mainchain()
-	if hydroxyl == true:
-		hydroxsummon()
-	if offshootings == true:
-		for i in range(1,3):
-			smallerchains()
-	decypher()
-
 func hydroxsummon():
 	hydroxyl_exists = randi_range(1,1)
 	if hydroxyl_exists == 1:
@@ -229,7 +252,6 @@ func number_prefix(a):
 		return "non"
 	elif a == 10:
 		return "dec"
-
 func realnumber_prefix(a):
 	if a == 2:
 		return "di"
@@ -251,3 +273,27 @@ func realnumber_prefix(a):
 		return "deca"
 	else:
 		return ""
+
+
+
+
+func _on_line_edit_text_submitted(new_text: String) -> void:
+	if new_text == nome:
+		$"../characterui/LineEdit".clear()
+		variablereset()
+		newmolecule()
+func _on_hydroxyl_groups_pressed() -> void:
+	if hydroxyl == true:
+		hydroxyl = false
+	else:
+		hydroxyl = true
+func _on_increase_pressed() -> void:
+	offshootings += 1
+func _on_decrease_pressed() -> void:
+	if offshootings > 0:
+		offshootings -= 1
+func _on_ene_pressed() -> void:
+	if ene == false:
+		ene = true
+	else:
+		ene = false

@@ -19,11 +19,45 @@ position = Vector2(602, 295)
 
 [node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
 
-[node name="TextEdit" type="TextEdit" parent="Node2D/characterui" unique_id=1106493848]
-offset_right = 115.0
-offset_bottom = 36.0
-text = "jh"
+[node name="LineEdit" type="LineEdit" parent="Node2D/characterui" unique_id=660849994]
+offset_right = 241.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 30
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=960486425]
 position = Vector2(688, 329)
 zoom = Vector2(0.53, 0.53)
+
+[node name="Node2D2" type="Node2D" parent="." unique_id=1485799415]
+visible = false
+
+[node name="hydroxyl groups" type="Button" parent="Node2D2" unique_id=888408294]
+offset_left = -6.0
+offset_top = 221.0
+offset_right = 179.0
+offset_bottom = 304.0
+
+[node name="increase" type="Button" parent="Node2D2" unique_id=999190676]
+offset_left = 229.0
+offset_top = 61.0
+offset_right = 237.0
+offset_bottom = 69.0
+
+[node name="decrease" type="Button" parent="Node2D2" unique_id=648375966]
+offset_left = 86.0
+offset_top = 127.0
+offset_right = 94.0
+offset_bottom = 135.0
+
+[node name="ene" type="Button" parent="Node2D2" unique_id=1010255509]
+offset_left = 281.0
+offset_top = 233.0
+offset_right = 289.0
+offset_bottom = 241.0
+
+[connection signal="gui_input" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_gui_input"]
+[connection signal="text_submitted" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Node2D2/hydroxyl groups" to="Node2D/main" method="_on_hydroxyl_groups_pressed"]
+[connection signal="pressed" from="Node2D2/increase" to="Node2D/main" method="_on_increase_pressed"]
+[connection signal="pressed" from="Node2D2/decrease" to="Node2D/main" method="_on_decrease_pressed"]
+[connection signal="pressed" from="Node2D2/ene" to="Node2D/main" method="_on_ene_pressed"]
