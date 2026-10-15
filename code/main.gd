@@ -79,57 +79,56 @@ func smallerchains():
 		offshoot_is_here = true
 		random_place = randi_range(1,chain_length-2)
 		chainoff_length = randi_range(1,(((chain_length-1)/(2))))
-		offshoots += [[random_place,chainoff_length]]
 		place = listplace[random_place][0]
 		plyce = listplace[random_place][1]
 		offpos += [random_place]
 		if (double_bond-1) > random_place:
 			if offpos.count(random_place) == 0:
+				offshoots +=  [[random_place+1,chainoff_length]]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					plyce = -(i*86)
 					print(Vector2(place,plyce))
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 			elif offpos.count(random_place) == 1:
+				offshoots +=  [[random_place+1,chainoff_length]]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					plyce = (i*86)
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 		
 		elif (double_bond-1) == random_place:
+			offshoots +=  [[random_place+1,chainoff_length]]
 			for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					plyce = (i*86)
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 		elif (double_bond) == random_place:
+			offshoots +=  [[random_place+1,chainoff_length]]
 			for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					place += 86
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 			
 		else:
 			if offpos.count(random_place) == 0:
+				offshoots +=  [[random_place+1,chainoff_length]]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					place += 86
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 			elif offpos.count(random_place) == 1:
+				offshoots +=  [[random_place+1,chainoff_length]]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					place -= 86
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
-					offshoots +=  [[random_place+1,chainoff_length]]
 
 
 func newmolecule():
@@ -155,21 +154,46 @@ func decypher():
 	if offshoot_is_here == true:
 		for i in range(0,len(offshoots)): #adds the names to number groups
 			if offshoots[i][1] == 1:
-				methyl += [random_place]
+				methyl += [offshoots[i][0]]
 			if offshoots[i][1] == 2:
-				ethyl += [random_place]
+				ethyl += [offshoots[i][0]]
 			if offshoots[i][1] == 3:
-				propyl += [random_place]
+				propyl += [offshoots[i][0]]
 			if offshoots[i][1] == 4:
-				butyl += [random_place]
+				butyl += [offshoots[i][0]]
 			if offshoots[i][1] == 5:
-				pentyl += [random_place]
+				pentyl += [offshoots[i][0]]
 		if butyl.size() > 0:
+			nome += '-'
 			for i in range(0,len(butyl)):
 				nome += str(butyl[i]) + ','
 			nome = nome.left(-1)
-			
-	
+			nome += "-" + realnumber_prefix(butyl.size()) + "butyl"
+		if ethyl.size() > 0:
+			nome += '-'
+			for i in range(0,len(ethyl)):
+				nome += str(ethyl[i]) + ','
+			nome = nome.left(-1)
+			nome += "-" + realnumber_prefix(ethyl.size()) + "ethyl"
+		if methyl.size() > 0:
+			nome += '-'
+			for i in range(0,len(methyl)):
+				nome += str(methyl[i]) + ','
+			nome = nome.left(-1)
+			nome += "-" + realnumber_prefix(methyl.size()) + "methyl"
+		if pentyl.size() > 0:
+			nome += '-'
+			for i in range(0,len(pentyl)):
+				nome += str(pentyl[i]) + ','
+			nome = nome.left(-1)
+			nome += "-" + realnumber_prefix(pentyl.size()) + "pentyl"
+		if propyl.size() > 0:
+			nome += '-'
+			for i in range(0,len(propyl)):
+				nome += str(propyl[i]) + ','
+			nome = nome.left(-1)
+			nome += "-" + realnumber_prefix(propyl.size()) + "propyl"
+		nome = nome.right(-1)
 	nome += number_prefix(chain_length)
 	if hydroxyl_is_here != false:
 		if ene_is_here != false:
@@ -205,3 +229,25 @@ func number_prefix(a):
 		return "non"
 	elif a == 10:
 		return "dec"
+
+func realnumber_prefix(a):
+	if a == 2:
+		return "di"
+	elif a == 3:
+		return "tri"
+	elif a == 4:
+		return "tetra"
+	elif a == 5:
+		return "penta"
+	elif a == 6:
+		return "hexa"
+	elif a == 7:
+		return "hepta"
+	elif a == 8:
+		return "octa"
+	elif a == 9:
+		return "nona"
+	elif a == 10:
+		return "deca"
+	else:
+		return ""
