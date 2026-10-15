@@ -12,6 +12,10 @@ var offshoots = []
 var offpos = []
 var nome = ""
 
+var hydroxyl_is_here = false
+var ene_is_here = false
+var offshoot_is_here = false
+
 var ethyl = []
 var methyl = []
 var butyl = []
@@ -19,6 +23,7 @@ var propyl = []
 var pentyl = []
 
 var offshootings = true
+var hydroxyl = true
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -36,10 +41,8 @@ func _process(delta: float) -> void:
 func mainchain():
 	chain_length = randi_range(1,10)
 	double_bond = randi_range(1,9)
-	hydroxyl_exists = randi_range(1,1)
 	print('chain_length:',chain_length)
 	print('double_bond:',double_bond)
-	print('hydroxl:',hydroxyl_exists)
 	if double_bond < chain_length:
 		for i in range(chain_length-1):
 			if i == (double_bond-1):
@@ -49,6 +52,7 @@ func mainchain():
 				listplace += [[place+61,-61]]
 				thing.global_position = Vector2(place,0)
 				placechild.add_child(thing)
+				ene_is_here = true
 			elif i > (double_bond-1):
 				var thing = carbon.instantiate()
 				place = (double_bond-1)*86 + 61
@@ -69,14 +73,10 @@ func mainchain():
 			listplace += [[place,0]]
 			thing.global_position = Vector2(place,0)
 			placechild.add_child(thing)
-	if hydroxyl_exists == 1:
-		var thing = hydroxl.instantiate()
-		thing.global_position = Vector2(-62,0)
-		placechild.add_child(thing)
-		hydroxyl_exists = true
 
 func smallerchains():
 	if chain_length > 2:
+		offshoot_is_here = true
 		random_place = randi_range(1,chain_length-2)
 		chainoff_length = randi_range(1,(((chain_length-1)/(2))))
 		offshoots += [[random_place,chainoff_length]]
@@ -136,32 +136,53 @@ func newmolecule():
 	for child in placechild.get_children():
 		child.queue_free()
 	mainchain()
-	for i in range(1,3):
-		smallerchains()
+	if hydroxyl == true:
+		hydroxsummon()
+	if offshootings == true:
+		for i in range(1,3):
+			smallerchains()
 	decypher()
 
+func hydroxsummon():
+	hydroxyl_exists = randi_range(1,1)
+	if hydroxyl_exists == 1:
+			var thing = hydroxl.instantiate()
+			thing.global_position = Vector2(-62,0)
+			placechild.add_child(thing)
+			hydroxyl_is_here = true
 
 func decypher():
-	if offshootings != false:
-		for i in range(0,len(offshoots)):
-			# random_place,chainoff_length
+	if offshoot_is_here == true:
+		for i in range(0,len(offshoots)): #adds the names to number groups
 			if offshoots[i][1] == 1:
-				methyl += random_place
-		nome += 'ly'
-	
+				methyl += [random_place]
+			if offshoots[i][1] == 2:
+				ethyl += [random_place]
+			if offshoots[i][1] == 3:
+				propyl += [random_place]
+			if offshoots[i][1] == 4:
+				butyl += [random_place]
+			if offshoots[i][1] == 5:
+				pentyl += [random_place]
+		if butyl.size() > 0:
+			for i in range(0,len(butyl)):
+				nome += str(butyl[i]) + ','
+			nome = nome.left(-1)
+			
 	
 	nome += number_prefix(chain_length)
-	if hydroxyl_exists != false:
-		if double_bond != false:
+	if hydroxyl_is_here != false:
+		if ene_is_here != false:
 			nome += '-'
-			nome += double_bond
+			nome += str(double_bond)
 			nome += '-en-1-ol'
 		else:
 			nome += 'anol'
-	elif double_bond != false:
+	elif ene_is_here != false:
 		nome += 'ene'
 	else:
 		nome += 'ane'
+	print(nome)
 
 func number_prefix(a):
 	if a == 1:
