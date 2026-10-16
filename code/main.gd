@@ -24,7 +24,7 @@ var propyl = []
 var pentyl = []
 
 var offshootings = 0
-var hydroxyl = false
+var hydroxyl = true
 var ene = false
 
 const carbon = preload('res://summons/carbon.tscn')
@@ -375,11 +375,17 @@ func _on_hydroxyl_groups_pressed() -> void:
 		hydroxyl = true
 func _on_increase_pressed() -> void:
 	offshootings += 1
+	$"../../Node2D2/Node2D/Label".text = str(offshootings)
 func _on_decrease_pressed() -> void:
 	if offshootings > 0:
 		offshootings -= 1
+	$"../../Node2D2/Node2D/Label".text = str(offshootings)
 func _on_ene_pressed() -> void:
 	if ene == false:
 		ene = true
+		$"../../Node2D2/Node2D2/Node2D2".visible = false
+		$"../../Node2D2/Node2D2/Node2D".visible = true
 	else:
 		ene = false
+		$"../../Node2D2/Node2D2/Node2D".visible = false
+		$"../../Node2D2/Node2D2/Node2D2".visible = true

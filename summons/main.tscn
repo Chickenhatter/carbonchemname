@@ -3,6 +3,36 @@
 [ext_resource type="Script" uid="uid://1aviqvua06fi" path="res://code/main.gd" id="1_e3a7m"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_yuh74"]
 [ext_resource type="Texture2D" uid="uid://bt61xs7yebomn" path="res://assets/slopee-modified.png" id="3_oqdkc"]
+[ext_resource type="Texture2D" uid="uid://dcilohxeb7sgv" path="res://assets/arrow-modified.png" id="4_0t8wh"]
+[ext_resource type="PackedScene" uid="uid://cgckor6e1u7dr" path="res://summons/carbon3.tscn" id="5_bnseq"]
+[ext_resource type="PackedScene" uid="uid://bv88lpxdwlg1n" path="res://summons/carbon.tscn" id="6_kwbvq"]
+[ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="7_kwbvq"]
+[ext_resource type="PackedScene" uid="uid://b0f4cnnrcc6nl" path="res://summons/hydroxyl.tscn" id="8_lvb2v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvb2v"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hxdv6"]
+radius = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m5wwk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_kwbvq")
+}],
+"loop": 1,
+"name": &"hydrogen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"none",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D" unique_id=214232450]
 
@@ -41,35 +71,147 @@ position = Vector2(688, 329)
 zoom = Vector2(0.53, 0.53)
 
 [node name="Node2D2" type="Node2D" parent="." unique_id=1485799415]
-visible = false
 
-[node name="hydroxyl groups" type="Button" parent="Node2D2" unique_id=888408294]
+[node name="Node2D" type="Node2D" parent="Node2D2" unique_id=2128609276]
+position = Vector2(143, -14)
+rotation = -3.1415927
+
+[node name="increase" type="Button" parent="Node2D2/Node2D" unique_id=999190676]
+offset_left = -129.0
+offset_top = -57.0
+offset_right = 14.0
+offset_bottom = 74.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D2/Node2D/increase" unique_id=1859600079]
+position = Vector2(96, 30)
+rotation = -1.6231562
+scale = Vector2(0.20754029, 0.19202717)
+texture = ExtResource("4_0t8wh")
+
+[node name="decrease" type="Button" parent="Node2D2/Node2D" unique_id=648375966]
+offset_left = 166.0
+offset_top = -55.0
+offset_right = 309.0
+offset_bottom = 76.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D2/Node2D/decrease" unique_id=431138762]
+position = Vector2(49, 103.000015)
+rotation = 1.5184364
+scale = Vector2(0.20754029, 0.19202717)
+texture = ExtResource("4_0t8wh")
+
+[node name="Label" type="Label" parent="Node2D2/Node2D" unique_id=673288599]
+offset_left = 135.0
+offset_top = 66.00001
+offset_right = 227.0
+offset_bottom = 176.0
+rotation = 3.1415927
+theme_override_font_sizes/font_size = 80
+text = "0"
+
+[node name="Node2D2" type="Node2D" parent="Node2D2" unique_id=766255094]
+
+[node name="ene" type="Button" parent="Node2D2/Node2D2" unique_id=1010255509]
+offset_left = 265.0
+offset_top = 211.0
+offset_right = 511.0
+offset_bottom = 455.0
+
+[node name="Node2D" parent="Node2D2/Node2D2" unique_id=494230564 instance=ExtResource("5_bnseq")]
+visible = false
+position = Vector2(355, 362)
+
+[node name="Node2D2" type="Node2D" parent="Node2D2/Node2D2" unique_id=102406881]
+
+[node name="carboni" parent="Node2D2/Node2D2/Node2D2" unique_id=304733575 instance=ExtResource("6_kwbvq")]
+position = Vector2(382, 333)
+scale = Vector2(1.185, 1.185)
+
+[node name="Node2D3" type="Node2D" parent="Node2D2" unique_id=2032629981]
+
+[node name="hydroxyl groups" type="Button" parent="Node2D2/Node2D3" unique_id=888408294]
 offset_left = -6.0
 offset_top = 221.0
 offset_right = 179.0
 offset_bottom = 304.0
 
-[node name="increase" type="Button" parent="Node2D2" unique_id=999190676]
-offset_left = 229.0
-offset_top = 61.0
-offset_right = 237.0
-offset_bottom = 69.0
+[node name="carbon" type="Area2D" parent="Node2D2/Node2D3" unique_id=319973668]
+position = Vector2(579, 102)
 
-[node name="decrease" type="Button" parent="Node2D2" unique_id=648375966]
-offset_left = 86.0
-offset_top = 127.0
-offset_right = 94.0
-offset_bottom = 135.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Node2D3/carbon" unique_id=1309790253]
+shape = SubResource("CircleShape2D_lvb2v")
 
-[node name="ene" type="Button" parent="Node2D2" unique_id=1010255509]
-offset_left = 281.0
-offset_top = 233.0
-offset_right = 289.0
-offset_bottom = 241.0
+[node name="Node2D" type="Node2D" parent="Node2D2/Node2D3/carbon" unique_id=1261925748]
+modulate = Color(0.012617188, 0.012617188, 0.012617188, 1)
+self_modulate = Color(0, 0, 0, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D2/Node2D3/carbon" unique_id=465410160]
+self_modulate = Color(0.12636636, 0.12636636, 0.12636636, 1)
+position = Vector2(-9.536743e-07, 2.3841858e-07)
+scale = Vector2(0.15333332, 0.14999999)
+texture = ExtResource("7_kwbvq")
+
+[node name="hydrogens" type="Node2D" parent="Node2D2/Node2D3" unique_id=1800457522]
+position = Vector2(579, 102)
+
+[node name="hydrogen1" type="Area2D" parent="Node2D2/Node2D3/hydrogens" unique_id=316144498]
+position = Vector2(0, -43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Node2D3/hydrogens/hydrogen1" unique_id=599137387]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_hxdv6")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="Node2D2/Node2D3/hydrogens/hydrogen1" unique_id=234233317]
+position = Vector2(0, -15.999999)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_m5wwk")
+animation = &"hydrogen"
+
+[node name="hydrogen2" type="Area2D" parent="Node2D2/Node2D3/hydrogens" unique_id=1636315738]
+position = Vector2(-43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Node2D3/hydrogens/hydrogen2" unique_id=1134859278]
+position = Vector2(-18, 0)
+shape = SubResource("CircleShape2D_hxdv6")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="Node2D2/Node2D3/hydrogens/hydrogen2" unique_id=1365663250]
+position = Vector2(-17.999998, 0)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_m5wwk")
+animation = &"hydrogen"
+
+[node name="hydrogen3" type="Area2D" parent="Node2D2/Node2D3/hydrogens" unique_id=2020577954]
+position = Vector2(0, 43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Node2D3/hydrogens/hydrogen3" unique_id=1693089549]
+position = Vector2(0, 17)
+shape = SubResource("CircleShape2D_hxdv6")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="Node2D2/Node2D3/hydrogens/hydrogen3" unique_id=1371610816]
+position = Vector2(0, 16.999998)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_m5wwk")
+animation = &"hydrogen"
+
+[node name="hydrogen4" type="Area2D" parent="Node2D2/Node2D3/hydrogens" unique_id=373939681]
+position = Vector2(43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D2/Node2D3/hydrogens/hydrogen4" unique_id=2034045044]
+position = Vector2(17, 0)
+shape = SubResource("CircleShape2D_hxdv6")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="Node2D2/Node2D3/hydrogens/hydrogen4" unique_id=1117519056]
+position = Vector2(16.999998, 0)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_m5wwk")
+animation = &"hydrogen"
+
+[node name="hydroxl" parent="Node2D2/Node2D3" unique_id=1052697337 instance=ExtResource("8_lvb2v")]
+position = Vector2(519, 102)
 
 [connection signal="gui_input" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_gui_input"]
 [connection signal="text_submitted" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_text_submitted"]
-[connection signal="pressed" from="Node2D2/hydroxyl groups" to="Node2D/main" method="_on_hydroxyl_groups_pressed"]
-[connection signal="pressed" from="Node2D2/increase" to="Node2D/main" method="_on_increase_pressed"]
-[connection signal="pressed" from="Node2D2/decrease" to="Node2D/main" method="_on_decrease_pressed"]
-[connection signal="pressed" from="Node2D2/ene" to="Node2D/main" method="_on_ene_pressed"]
+[connection signal="pressed" from="Node2D2/Node2D/increase" to="Node2D/main" method="_on_increase_pressed"]
+[connection signal="pressed" from="Node2D2/Node2D/decrease" to="Node2D/main" method="_on_decrease_pressed"]
+[connection signal="pressed" from="Node2D2/Node2D2/ene" to="Node2D/main" method="_on_ene_pressed"]
+[connection signal="pressed" from="Node2D2/Node2D3/hydroxyl groups" to="Node2D/main" method="_on_hydroxyl_groups_pressed"]
