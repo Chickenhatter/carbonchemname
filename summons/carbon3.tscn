@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="1_1qdpj"]
 [ext_resource type="Script" uid="uid://cxdu5a6xui10b" path="res://code/alkene.gd" id="1_5islj"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_cbnel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_37otx"]
 radius = 18.0
@@ -109,6 +110,20 @@ self_modulate = Color(0.12636636, 0.12636636, 0.12636636, 1)
 position = Vector2(61.000004, -60.999996)
 scale = Vector2(0.15333332, 0.14999999)
 texture = ExtResource("1_1qdpj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=541508943]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(22.999996, -38)
+rotation = -0.7853982
+scale = Vector2(0.3984375, 0.09374999)
+texture = ExtResource("3_cbnel")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=1027829303]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(38, -24)
+rotation = -0.7853982
+scale = Vector2(0.3984375, 0.09374999)
+texture = ExtResource("3_cbnel")
 
 [connection signal="area_entered" from="hydrogens/hydrogen1" to="hydrogens" method="_on_hydrogen_1_area_entered"]
 [connection signal="area_entered" from="hydrogens/hydrogen2" to="hydrogens" method="_on_hydrogen_2_area_entered"]

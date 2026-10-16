@@ -23,13 +23,14 @@ var butyl = []
 var propyl = []
 var pentyl = []
 
-var offshootings = 100
+var offshootings = 0
 var hydroxyl = false
-var ene = true
+var ene = false
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
 const hydroxl = preload('res://summons/hydroxyl.tscn')
+const offsum = preload('res://summons/offshoot.tscn')
 @onready var placechild = $whereplace
 
 # Called when the node enters the scene tree for the first time.
@@ -73,6 +74,7 @@ func newmolecule():
 		
 		for i in range((randi_range(0,offshootings)),offshootings):
 			smallerchains()
+	$whereplace.global_rotation_degrees = (randi_range(1,4)*90)
 	decypher()
 
 func mainchain():
@@ -125,57 +127,63 @@ func smallerchains():
 				offshoots +=  [[random_place+1,chainoff_length]]
 				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
+					var thing = offsum.instantiate()
 					plyce = -(i*86)
 					print(Vector2(place,plyce))
 					thing.global_position = Vector2(place,plyce)
+					thing.global_rotation_degrees = 0
 					placechild.add_child(thing)
 			elif offpos.count(random_place) == 1:
 				if offpos.count(random_place) == 0:
 					offshoots +=  [[random_place+1,chainoff_length]]
 					offpos += [random_place]
 					for i in range(1,chainoff_length+1):
-						var thing = carbon.instantiate()
+						var thing = offsum.instantiate()
 						plyce = (i*86)
 						thing.global_position = Vector2(place,plyce)
+						thing.global_rotation_degrees = 180
 						placechild.add_child(thing)
 		elif (double_bond-1) == random_place:
 			if offpos.count(random_place) == 0:
 				offshoots +=  [[random_place+1,chainoff_length]]
 				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
-						var thing = carbon.instantiate()
+						var thing = offsum.instantiate()
 						plyce = (i*86)
 						thing.global_position = Vector2(place,plyce)
+						thing.global_rotation_degrees = 180
 						placechild.add_child(thing)
 		elif (double_bond) == random_place:
 			if offpos.count(random_place) == 0:
 				offshoots +=  [[random_place+1,chainoff_length]]
 				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
-						var thing = carbon.instantiate()
+						var thing = offsum.instantiate()
 						place += 86
 						thing.global_position = Vector2(place,plyce)
+						thing.global_rotation_degrees = 90
 						placechild.add_child(thing)
 		else:
 			if offpos.count(random_place) == 0:
 				offshoots +=  [[random_place+1,chainoff_length]]
 				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
+					var thing = offsum.instantiate()
 					place += 86
 					thing.global_position = Vector2(place,plyce)
+					thing.global_rotation_degrees = 90
 					placechild.add_child(thing)
 			elif offpos.count(random_place) == 1:
 				offshoots +=  [[random_place+1,chainoff_length]]
 				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
+					var thing = offsum.instantiate()
 					place -= 86
 					thing.global_position = Vector2(place,plyce)
+					thing.global_rotation_degrees = 270
 					placechild.add_child(thing)
 func hydroxsummon():
-	hydroxyl_exists = randi_range(1,1)
+	hydroxyl_exists = randi_range(1,4)
 	if hydroxyl_exists == 1:
 			var thing = hydroxl.instantiate()
 			thing.global_position = Vector2(-62,0)
@@ -183,6 +191,7 @@ func hydroxsummon():
 			hydroxyl_is_here = true
 
 func decypher():
+	
 	print(offshoots)
 	if offshoot_is_here == true:
 		for i in range(0,len(offshoots)): #adds the names to number groups

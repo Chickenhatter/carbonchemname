@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1aviqvua06fi" path="res://code/main.gd" id="1_e3a7m"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_yuh74"]
+[ext_resource type="Texture2D" uid="uid://bt61xs7yebomn" path="res://assets/slopee-modified.png" id="3_oqdkc"]
 
 [node name="Node2D" type="Node2D" unique_id=214232450]
 
@@ -11,18 +12,29 @@
 script = ExtResource("1_e3a7m")
 
 [node name="Icon" type="Sprite2D" parent="Node2D/main" unique_id=1573529540]
+visible = false
 position = Vector2(67, 361)
 texture = ExtResource("2_yuh74")
 
 [node name="whereplace" type="Node2D" parent="Node2D/main" unique_id=405045454]
-position = Vector2(602, 295)
+position = Vector2(691, 177)
+scale = Vector2(0.8, 0.8)
 
 [node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
 
 [node name="LineEdit" type="LineEdit" parent="Node2D/characterui" unique_id=660849994]
-offset_right = 1152.0
-offset_bottom = 102.0
+z_index = 1
+offset_left = 90.0
+offset_top = 737.0
+offset_right = 1242.0
+offset_bottom = 839.0
 theme_override_font_sizes/font_size = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/characterui" unique_id=602731546]
+position = Vector2(1787.0001, 547)
+rotation = -0.025617918
+scale = Vector2(2.2912738, 1.8025622)
+texture = ExtResource("3_oqdkc")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=960486425]
 position = Vector2(688, 329)

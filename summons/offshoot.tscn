@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bwcnso8wr5gn6"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_icyb4"]
+[ext_resource type="Texture2D" uid="uid://ouppgw3rbydh" path="res://assets/circle/circle.png" id="2_1mf8m"]
+[ext_resource type="Script" uid="uid://b3s5cs3dmw4gm" path="res://summons/offcarbon.gd" id="3_yve3j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cu5fv"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wpn2"]
+radius = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_en12e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1mf8m")
+}],
+"loop": 1,
+"name": &"hydrogen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"none",
+"speed": 5.0
+}]
+
+[node name="offshoot" type="Node2D" unique_id=569294381]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1324698308]
+visible = false
+texture = ExtResource("1_icyb4")
+
+[node name="carbon" type="Area2D" parent="." unique_id=691203142]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="carbon" unique_id=1921178830]
+shape = SubResource("CircleShape2D_cu5fv")
+
+[node name="Node2D" type="Node2D" parent="carbon" unique_id=120463730]
+modulate = Color(0.012617188, 0.012617188, 0.012617188, 1)
+self_modulate = Color(0, 0, 0, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="carbon" unique_id=835411102]
+self_modulate = Color(0.12636636, 0.12636636, 0.12636636, 1)
+position = Vector2(-9.536743e-07, 2.3841858e-07)
+scale = Vector2(0.15333332, 0.14999999)
+texture = ExtResource("2_1mf8m")
+
+[node name="hydrogens" type="Node2D" parent="." unique_id=40319340]
+
+[node name="hydrogen1" type="Area2D" parent="hydrogens" unique_id=1922874895]
+position = Vector2(0, -43)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen1" unique_id=1782896265]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_0wpn2")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen1" unique_id=1401239127]
+position = Vector2(0, -15.999999)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_en12e")
+animation = &"hydrogen"
+
+[node name="hydrogen2" type="Area2D" parent="hydrogens" unique_id=183681844]
+position = Vector2(-43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen2" unique_id=1403827003]
+position = Vector2(-18, 0)
+shape = SubResource("CircleShape2D_0wpn2")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen2" unique_id=2119489781]
+position = Vector2(4, 0)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_en12e")
+animation = &"hydrogen"
+
+[node name="hydrogen4" type="Area2D" parent="hydrogens" unique_id=370407989]
+position = Vector2(43, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hydrogens/hydrogen4" unique_id=444911484]
+position = Vector2(17, 0)
+shape = SubResource("CircleShape2D_0wpn2")
+
+[node name="hydrogensprite" type="AnimatedSprite2D" parent="hydrogens/hydrogen4" unique_id=1268512487]
+position = Vector2(-4, 0)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_en12e")
+animation = &"hydrogen"
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1462226323]
+script = ExtResource("3_yve3j")
+
+[connection signal="area_entered" from="hydrogens/hydrogen1" to="Node2D" method="_on_hydrogen_1_area_entered"]
