@@ -11,6 +11,7 @@ var chainoff_length = 0
 var offshoots = []
 var offpos = []
 var nome = ""
+var secondnome = ""
 
 var hydroxyl_is_here = false
 var ene_is_here = false
@@ -22,9 +23,9 @@ var butyl = []
 var propyl = []
 var pentyl = []
 
-var offshootings = 0
-var hydroxyl = true
-var ene = false
+var offshootings = 10
+var hydroxyl = false
+var ene = true
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -60,6 +61,7 @@ func variablereset():
 	butyl = []
 	propyl = []
 	pentyl = []
+	secondnome = ''
 
 func newmolecule():
 	for child in placechild.get_children():
@@ -174,6 +176,7 @@ func hydroxsummon():
 			hydroxyl_is_here = true
 
 func decypher():
+	print(offshoots)
 	if offshoot_is_here == true:
 		for i in range(0,len(offshoots)): #adds the names to number groups
 			if offshoots[i][1] == 1:
@@ -186,50 +189,85 @@ func decypher():
 				butyl += [offshoots[i][0]]
 			if offshoots[i][1] == 5:
 				pentyl += [offshoots[i][0]]
+		methyl.sort()
+		ethyl.sort()
+		propyl.sort()
+		butyl.sort()
+		pentyl.sort()
+		print(methyl,ethyl,propyl,butyl,pentyl)
 		if butyl.size() > 0:
 			nome += '-'
+			secondnome += '-'
 			for i in range(0,len(butyl)):
 				nome += str(butyl[i]) + ','
+				secondnome += str(chain_length-butyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(butyl.size()) + "butyl"
+			secondnome = secondnome.left(-1)
+			secondnome += "-" + realnumber_prefix(butyl.size()) + "butyl"
 		if ethyl.size() > 0:
 			nome += '-'
+			secondnome += '-'
 			for i in range(0,len(ethyl)):
 				nome += str(ethyl[i]) + ','
+				secondnome += str(chain_length-ethyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(ethyl.size()) + "ethyl"
+			secondnome = secondnome.left(-1)
+			secondnome += "-" + realnumber_prefix(ethyl.size()) + "ethyl"
 		if methyl.size() > 0:
 			nome += '-'
+			secondnome += '-'
 			for i in range(0,len(methyl)):
 				nome += str(methyl[i]) + ','
+				secondnome += str(chain_length-methyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(methyl.size()) + "methyl"
+			secondnome = secondnome.left(-1)
+			secondnome += "-" + realnumber_prefix(methyl.size()) + "methyl"
 		if pentyl.size() > 0:
 			nome += '-'
+			secondnome += '-'
 			for i in range(0,len(pentyl)):
 				nome += str(pentyl[i]) + ','
+				secondnome += str(chain_length-pentyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(pentyl.size()) + "pentyl"
+			secondnome = secondnome.left(-1)
+			secondnome += "-" + realnumber_prefix(pentyl.size()) + "pentyl"
 		if propyl.size() > 0:
 			nome += '-'
+			secondnome += '-'
 			for i in range(0,len(propyl)):
 				nome += str(propyl[i]) + ','
+				secondnome += str(chain_length-propyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(propyl.size()) + "propyl"
+			secondnome = secondnome.left(-1)
+			secondnome += "-" + realnumber_prefix(propyl.size()) + "propyl"
 		nome = nome.right(-1)
+		secondnome = secondnome.right(-1)
 	nome += number_prefix(chain_length)
+	secondnome += number_prefix(chain_length)
 	if hydroxyl_is_here != false:
 		if ene_is_here != false:
 			nome += '-'
 			nome += str(double_bond)
 			nome += '-en-1-ol'
+			secondnome += '-'
+			secondnome += str(chain_length-double_bond)
+			secondnome += '-en-1-ol'
 		else:
 			nome += 'anol'
+			secondnome += 'anol'
 	elif ene_is_here != false:
 		nome += 'ene'
+		secondnome += 'ene'
 	else:
 		nome += 'ane'
+		secondnome += 'ane'
 	print(nome)
+	print(secondnome)
 
 func number_prefix(a):
 	if a == 1:
@@ -278,10 +316,32 @@ func realnumber_prefix(a):
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
-	if new_text == nome:
+	print(chain_length - double_bond,double_bond)
+	if new_text == nome or new_text == secondnome:
+		print('mm')
+	if hydroxyl_is_here == true:
+		if new_text == nome:
+			$"../characterui/LineEdit".clear()
+			variablereset()
+			newmolecule()
+	elif ene_is_here == true:
+		if new_text == nome and (chain_length - double_bond) > (double_bond):
+			$"../characterui/LineEdit".clear()
+			variablereset()
+			newmolecule()
+		elif new_text == secondnome and (chain_length - double_bond) < (double_bond):
+			$"../characterui/LineEdit".clear()
+			variablereset()
+			newmolecule()
+		elif (new_text == nome or new_text == secondnome) and (chain_length - double_bond) == (double_bond):
+			$"../characterui/LineEdit".clear()
+			variablereset()
+			newmolecule()
+	elif new_text == nome or new_text == secondnome:
 		$"../characterui/LineEdit".clear()
 		variablereset()
 		newmolecule()
+
 func _on_hydroxyl_groups_pressed() -> void:
 	if hydroxyl == true:
 		hydroxyl = false

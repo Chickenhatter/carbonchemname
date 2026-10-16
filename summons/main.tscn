@@ -20,7 +20,7 @@ position = Vector2(602, 295)
 [node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
 
 [node name="LineEdit" type="LineEdit" parent="Node2D/characterui" unique_id=660849994]
-offset_right = 241.0
+offset_right = 1152.0
 offset_bottom = 102.0
 theme_override_font_sizes/font_size = 30
 
