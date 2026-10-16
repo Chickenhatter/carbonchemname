@@ -23,7 +23,7 @@ var butyl = []
 var propyl = []
 var pentyl = []
 
-var offshootings = 10
+var offshootings = 100
 var hydroxyl = false
 var ene = true
 
@@ -116,13 +116,14 @@ func smallerchains():
 	if chain_length > 2:
 		offshoot_is_here = true
 		random_place = randi_range(1,chain_length-2)
-		chainoff_length = randi_range(1,(((chain_length-1)/(2))))
+		chainoff_length = randi_range(1,(chain_length - (chain_length + 1) / 2.0 - abs((chain_length + 1) / 2.0 - random_place-1)))
 		place = listplace[random_place][0]
 		plyce = listplace[random_place][1]
-		offpos += [random_place]
 		if (double_bond-1) > random_place:
+			
 			if offpos.count(random_place) == 0:
 				offshoots +=  [[random_place+1,chainoff_length]]
+				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					plyce = -(i*86)
@@ -130,31 +131,36 @@ func smallerchains():
 					thing.global_position = Vector2(place,plyce)
 					placechild.add_child(thing)
 			elif offpos.count(random_place) == 1:
-				offshoots +=  [[random_place+1,chainoff_length]]
-				for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
-					plyce = (i*86)
-					thing.global_position = Vector2(place,plyce)
-					placechild.add_child(thing)
-		
+				if offpos.count(random_place) == 0:
+					offshoots +=  [[random_place+1,chainoff_length]]
+					offpos += [random_place]
+					for i in range(1,chainoff_length+1):
+						var thing = carbon.instantiate()
+						plyce = (i*86)
+						thing.global_position = Vector2(place,plyce)
+						placechild.add_child(thing)
 		elif (double_bond-1) == random_place:
-			offshoots +=  [[random_place+1,chainoff_length]]
-			for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
-					plyce = (i*86)
-					thing.global_position = Vector2(place,plyce)
-					placechild.add_child(thing)
+			if offpos.count(random_place) == 0:
+				offshoots +=  [[random_place+1,chainoff_length]]
+				offpos += [random_place]
+				for i in range(1,chainoff_length+1):
+						var thing = carbon.instantiate()
+						plyce = (i*86)
+						thing.global_position = Vector2(place,plyce)
+						placechild.add_child(thing)
 		elif (double_bond) == random_place:
-			offshoots +=  [[random_place+1,chainoff_length]]
-			for i in range(1,chainoff_length+1):
-					var thing = carbon.instantiate()
-					place += 86
-					thing.global_position = Vector2(place,plyce)
-					placechild.add_child(thing)
-			
+			if offpos.count(random_place) == 0:
+				offshoots +=  [[random_place+1,chainoff_length]]
+				offpos += [random_place]
+				for i in range(1,chainoff_length+1):
+						var thing = carbon.instantiate()
+						place += 86
+						thing.global_position = Vector2(place,plyce)
+						placechild.add_child(thing)
 		else:
 			if offpos.count(random_place) == 0:
 				offshoots +=  [[random_place+1,chainoff_length]]
+				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					place += 86
@@ -162,6 +168,7 @@ func smallerchains():
 					placechild.add_child(thing)
 			elif offpos.count(random_place) == 1:
 				offshoots +=  [[random_place+1,chainoff_length]]
+				offpos += [random_place]
 				for i in range(1,chainoff_length+1):
 					var thing = carbon.instantiate()
 					place -= 86
@@ -200,6 +207,8 @@ func decypher():
 			secondnome += '-'
 			for i in range(0,len(butyl)):
 				nome += str(butyl[i]) + ','
+			butyl.reverse()
+			for i in range(0,len(butyl)):
 				secondnome += str(chain_length-butyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(butyl.size()) + "butyl"
@@ -210,6 +219,8 @@ func decypher():
 			secondnome += '-'
 			for i in range(0,len(ethyl)):
 				nome += str(ethyl[i]) + ','
+			ethyl.reverse()
+			for i in range(0,len(ethyl)):
 				secondnome += str(chain_length-ethyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(ethyl.size()) + "ethyl"
@@ -220,6 +231,8 @@ func decypher():
 			secondnome += '-'
 			for i in range(0,len(methyl)):
 				nome += str(methyl[i]) + ','
+			methyl.reverse()
+			for i in range(0,len(methyl)):
 				secondnome += str(chain_length-methyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(methyl.size()) + "methyl"
@@ -230,6 +243,8 @@ func decypher():
 			secondnome += '-'
 			for i in range(0,len(pentyl)):
 				nome += str(pentyl[i]) + ','
+			pentyl.reverse()
+			for i in range(0,len(pentyl)):
 				secondnome += str(chain_length-pentyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(pentyl.size()) + "pentyl"
@@ -240,6 +255,8 @@ func decypher():
 			secondnome += '-'
 			for i in range(0,len(propyl)):
 				nome += str(propyl[i]) + ','
+			propyl.reverse()
+			for i in range(0,len(propyl)):
 				secondnome += str(chain_length-propyl[i]+1) + ','
 			nome = nome.left(-1)
 			nome += "-" + realnumber_prefix(propyl.size()) + "propyl"
