@@ -39,7 +39,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("ui_shift"):
+		if $"..".global_position == Vector2(0,0):
+			$"..".global_position = Vector2(-1000,-10000)
+			$"../../Node2D3".global_position = Vector2(0,0)
+		else:
+			$"../../Node2D3".global_position = Vector2(1000,10000)
+			$"..".global_position = Vector2(0,0)
+			
 
 func variablereset():
 	direction = 0
@@ -375,17 +382,23 @@ func _on_hydroxyl_groups_pressed() -> void:
 		hydroxyl = true
 func _on_increase_pressed() -> void:
 	offshootings += 1
-	$"../../Node2D2/Node2D/Label".text = str(offshootings)
+	$"../../Node2D3/Node2D2/Node2D/Label".text = str(offshootings)
 func _on_decrease_pressed() -> void:
 	if offshootings > 0:
 		offshootings -= 1
-	$"../../Node2D2/Node2D/Label".text = str(offshootings)
+	$"../../Node2D3/Node2D2/Node2D/Label".text = str(offshootings)
 func _on_ene_pressed() -> void:
 	if ene == false:
 		ene = true
-		$"../../Node2D2/Node2D2/Node2D2".visible = false
-		$"../../Node2D2/Node2D2/Node2D".visible = true
+		$"../../Node2D3/Node2D2/Node2D2/Node2D2".visible = false
+		$"../../Node2D3/Node2D2/Node2D2/Node2D".visible = true
 	else:
 		ene = false
-		$"../../Node2D2/Node2D2/Node2D".visible = false
-		$"../../Node2D2/Node2D2/Node2D2".visible = true
+		$"../../Node2D3/Node2D2/Node2D2/Node2D".visible = false
+		$"../../Node2D3/Node2D2/Node2D2/Node2D2".visible = true
+
+
+func _on_different_pressed() -> void:
+	$"../characterui/LineEdit".clear()
+	variablereset()
+	newmolecule()
