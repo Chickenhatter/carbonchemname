@@ -71,11 +71,11 @@ position = Vector2(688, 329)
 zoom = Vector2(0.53, 0.53)
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=920025779]
-self_modulate = Color(0.81905985, 0.8505504, 1.4882343, 1)
+self_modulate = Color(0.45714518, 0.5444068, 0.49159056, 1)
 z_index = -10
 position = Vector2(-3, 1111)
 scale = Vector2(99.3125, 70.640625)
-texture = ExtResource("2_yuh74")
+texture = ExtResource("7_kwbvq")
 
 [node name="Node2D3" type="Node2D" parent="." unique_id=2071317276]
 position = Vector2(-1000, -10000)
@@ -224,6 +224,7 @@ sprite_frames = SubResource("SpriteFrames_m5wwk")
 animation = &"hydrogen"
 
 [node name="hydroxl" parent="Node2D3/Node2D2/Node2D3" unique_id=1052697337 instance=ExtResource("8_lvb2v")]
+visible = false
 position = Vector2(519, 102)
 
 [node name="different" type="Button" parent="Node2D3/Node2D2" unique_id=1889911741]

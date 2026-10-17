@@ -13,6 +13,9 @@ var offpos = []
 var nome = ""
 var secondnome = ""
 
+var hydroxyl_position = 0
+
+
 var hydroxyl_is_here = false
 var ene_is_here = false
 var offshoot_is_here = false
@@ -25,7 +28,7 @@ var pentyl = []
 
 var offshootings = 0
 var hydroxyl = true
-var ene = false
+var ene = true
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -190,12 +193,71 @@ func smallerchains():
 					thing.global_rotation_degrees = 270
 					placechild.add_child(thing)
 func hydroxsummon():
-	hydroxyl_exists = randi_range(1,4)
+	hydroxyl_exists = randi_range(1,1)
 	if hydroxyl_exists == 1:
-			var thing = hydroxl.instantiate()
-			thing.global_position = Vector2(-62,0)
-			placechild.add_child(thing)
-			hydroxyl_is_here = true
+		hydroxyl_position = randi_range(-6,chain_length-1)
+		if hydroxyl_position < 0:
+			hydroxyl_position = 0
+		if (double_bond-1) > hydroxyl_position:
+			if offpos.count(hydroxyl_position) == 0:
+				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+				offpos += [hydroxyl_position]
+				var thing = hydroxl.instantiate()
+				plyce = -(1*86)
+				place = hydroxyl_position*86
+				print(Vector2(place,plyce))
+				thing.global_position = Vector2(place,plyce)
+				thing.global_rotation_degrees = 90
+				placechild.add_child(thing)
+			elif offpos.count(hydroxyl_position) == 1:
+				if offpos.count(hydroxyl_position) == 0:
+					offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+					offpos += [hydroxyl_position]
+					var thing = hydroxl.instantiate()
+					plyce = (1*86)
+					place = hydroxyl_position*86
+					thing.global_position = Vector2(place,plyce)
+					thing.global_rotation_degrees = 270
+					placechild.add_child(thing)
+		elif (double_bond-1) == hydroxyl_position:
+			if offpos.count(hydroxyl_position) == 0:
+				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+				offpos += [hydroxyl_position]
+				var thing = hydroxl.instantiate()
+				plyce = (1*86)
+				plyce = hydroxyl_position * 86
+				thing.global_position = Vector2(place,plyce)
+				thing.global_rotation_degrees = 270
+				placechild.add_child(thing)
+		elif (double_bond) == hydroxyl_position:
+			if offpos.count(hydroxyl_position) == 0:
+				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+				offpos += [hydroxyl_position]
+				var thing = hydroxl.instantiate()
+				place += 86
+				plyce = -62
+				thing.global_position = Vector2(place,plyce)
+				thing.global_rotation_degrees = 90
+				placechild.add_child(thing)
+		else:
+			if offpos.count(hydroxyl_position) == 0:
+				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+				offpos += [hydroxyl_position]
+				var thing = hydroxl.instantiate()
+				place += 86
+				plyce = -((hydroxyl_position-double_bond) * 86 +62)
+				thing.global_position = Vector2(place,plyce)
+				thing.global_rotation_degrees = 90
+				placechild.add_child(thing)
+			elif offpos.count(hydroxyl_position) == 1:
+				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
+				offpos += [hydroxyl_position]
+				for i in range(1,chainoff_length+1):
+					var thing = hydroxl.instantiate()
+					place -= 86
+					thing.global_position = Vector2(place,plyce)
+					thing.global_rotation_degrees = 270
+					placechild.add_child(thing)
 
 func decypher():
 	
@@ -377,8 +439,10 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 
 func _on_hydroxyl_groups_pressed() -> void:
 	if hydroxyl == true:
+		$"../../Node2D3/Node2D2/Node2D3/hydroxl".visible = false
 		hydroxyl = false
 	else:
+		$"../../Node2D3/Node2D2/Node2D3/hydroxl".visible = true
 		hydroxyl = true
 func _on_increase_pressed() -> void:
 	offshootings += 1
