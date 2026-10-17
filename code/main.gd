@@ -193,12 +193,19 @@ func smallerchains():
 					thing.global_rotation_degrees = 270
 					placechild.add_child(thing)
 func hydroxsummon():
-	hydroxyl_exists = randi_range(1,1)
+	hydroxyl_exists = randi_range(1,4)
 	if hydroxyl_exists == 1:
 		hydroxyl_position = randi_range(-6,chain_length-1)
 		if hydroxyl_position < 0:
 			hydroxyl_position = 0
-		if (double_bond-1) > hydroxyl_position:
+		if hydroxyl_position == 0:
+				var thing = hydroxl.instantiate()
+				thing.global_position = Vector2(-86,0)
+				thing.global_rotation_degrees = 0
+				placechild.add_child(thing)
+				hydroxyl_is_here = true
+		elif (double_bond-1) > hydroxyl_position:
+			print('first')
 			if offpos.count(hydroxyl_position) == 0:
 				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
 				offpos += [hydroxyl_position]
@@ -209,6 +216,7 @@ func hydroxsummon():
 				thing.global_position = Vector2(place,plyce)
 				thing.global_rotation_degrees = 90
 				placechild.add_child(thing)
+				hydroxyl_is_here = true
 			elif offpos.count(hydroxyl_position) == 1:
 				if offpos.count(hydroxyl_position) == 0:
 					offshoots +=  [[hydroxyl_position+1,chainoff_length]]
@@ -219,17 +227,21 @@ func hydroxsummon():
 					thing.global_position = Vector2(place,plyce)
 					thing.global_rotation_degrees = 270
 					placechild.add_child(thing)
+					hydroxyl_is_here = true
 		elif (double_bond-1) == hydroxyl_position:
+			print('second')
 			if offpos.count(hydroxyl_position) == 0:
 				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
 				offpos += [hydroxyl_position]
 				var thing = hydroxl.instantiate()
 				plyce = (1*86)
-				plyce = hydroxyl_position * 86
+				place = hydroxyl_position * 86
 				thing.global_position = Vector2(place,plyce)
 				thing.global_rotation_degrees = 270
 				placechild.add_child(thing)
+				hydroxyl_is_here = true
 		elif (double_bond) == hydroxyl_position:
+			print('third')
 			if offpos.count(hydroxyl_position) == 0:
 				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
 				offpos += [hydroxyl_position]
@@ -237,9 +249,11 @@ func hydroxsummon():
 				place += 86
 				plyce = -62
 				thing.global_position = Vector2(place,plyce)
-				thing.global_rotation_degrees = 90
+				thing.global_rotation_degrees = 180
 				placechild.add_child(thing)
+				hydroxyl_is_here = true
 		else:
+			print('fourth')
 			if offpos.count(hydroxyl_position) == 0:
 				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
 				offpos += [hydroxyl_position]
@@ -247,8 +261,9 @@ func hydroxsummon():
 				place += 86
 				plyce = -((hydroxyl_position-double_bond) * 86 +62)
 				thing.global_position = Vector2(place,plyce)
-				thing.global_rotation_degrees = 90
+				thing.global_rotation_degrees = 180
 				placechild.add_child(thing)
+				hydroxyl_is_here = true
 			elif offpos.count(hydroxyl_position) == 1:
 				offshoots +=  [[hydroxyl_position+1,chainoff_length]]
 				offpos += [hydroxyl_position]
@@ -258,6 +273,7 @@ func hydroxsummon():
 					thing.global_position = Vector2(place,plyce)
 					thing.global_rotation_degrees = 270
 					placechild.add_child(thing)
+					hydroxyl_is_here = true
 
 func decypher():
 	
@@ -348,10 +364,10 @@ func decypher():
 		if ene_is_here != false:
 			nome += '-'
 			nome += str(double_bond)
-			nome += '-en-1-ol'
+			nome += '-en-' + str(hydroxyl_position + 1) + '-ol'
 			secondnome += '-'
 			secondnome += str(chain_length-double_bond)
-			secondnome += '-en-1-ol'
+			secondnome += '-en-' + str(chain_length-hydroxyl_position) + '-ol'
 		else:
 			nome += 'anol'
 			secondnome += 'anol'
@@ -415,6 +431,21 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 	if new_text == nome or new_text == secondnome:
 		print('mm')
 	if hydroxyl_is_here == true:
+		if (hydroxyl_position + 1) == (chain_length+1/2):
+			if new_text == nome or new_text == secondnome:
+				$"../characterui/LineEdit".clear()
+				variablereset()
+				newmolecule()
+		elif (hydroxyl_position + 1) > (chain_length/2):
+			if new_text == secondnome:
+				$"../characterui/LineEdit".clear()
+				variablereset()
+				newmolecule()
+		else:
+			if new_text == nome:
+				$"../characterui/LineEdit".clear()
+				variablereset()
+				newmolecule()
 		if new_text == nome:
 			$"../characterui/LineEdit".clear()
 			variablereset()
