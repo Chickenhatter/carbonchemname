@@ -50,6 +50,22 @@ texture = ExtResource("2_yuh74")
 position = Vector2(691, 177)
 scale = Vector2(0.5, 0.5)
 
+[node name="Label" type="Label" parent="Node2D/main" unique_id=880351970]
+offset_left = -209.0
+offset_top = -280.0
+offset_right = 232.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 48
+text = "0"
+
+[node name="Label2" type="Label" parent="Node2D/main" unique_id=492204481]
+offset_left = -401.0
+offset_top = -281.0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 48
+text = "Correct:"
+
 [node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
 
 [node name="LineEdit" type="LineEdit" parent="Node2D/characterui" unique_id=660849994]
@@ -264,6 +280,15 @@ rotation = -1.5742868
 scale = Vector2(1.6443114, 1.2903483)
 texture = ExtResource("3_oqdkc")
 
+[node name="simple" type="Button" parent="Node2D3/Node2D2" unique_id=1268025922]
+offset_left = 586.0
+offset_top = -90.0
+offset_right = 946.0
+offset_bottom = 154.0
+theme_override_font_sizes/font_size = 50
+text = "simple"
+flat = true
+
 [connection signal="gui_input" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_gui_input"]
 [connection signal="text_submitted" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="Node2D3/Node2D2/Node2D/increase" to="Node2D/main" method="_on_increase_pressed"]
@@ -271,3 +296,4 @@ texture = ExtResource("3_oqdkc")
 [connection signal="pressed" from="Node2D3/Node2D2/Node2D2/ene" to="Node2D/main" method="_on_ene_pressed"]
 [connection signal="pressed" from="Node2D3/Node2D2/Node2D3/hydroxyl groups" to="Node2D/main" method="_on_hydroxyl_groups_pressed"]
 [connection signal="pressed" from="Node2D3/Node2D2/different" to="Node2D/main" method="_on_different_pressed"]
+[connection signal="pressed" from="Node2D3/Node2D2/simple" to="Node2D/main" method="_on_simple_pressed"]

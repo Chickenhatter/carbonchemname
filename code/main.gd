@@ -27,8 +27,11 @@ var propyl = []
 var pentyl = []
 
 var offshootings = 0
-var hydroxyl = true
-var ene = true
+var hydroxyl = false
+var ene = false
+var simple = false
+
+var correct = 0
 
 const carbon = preload('res://summons/carbon.tscn')
 const alkene = preload('res://summons/carbon3.tscn')
@@ -73,7 +76,6 @@ func variablereset():
 	propyl = []
 	pentyl = []
 	secondnome = ''
-
 func newmolecule():
 	for child in placechild.get_children():
 		child.queue_free()
@@ -86,6 +88,17 @@ func newmolecule():
 			smallerchains()
 	$whereplace.global_rotation_degrees = (randi_range(1,4)*90)
 	decypher()
+
+func simplemolecule():
+	for child in placechild.get_children():
+		child.queue_free()
+	mainchain()
+	if ene_is_here == false:
+		if hydroxyl == true:
+			hydroxsummon()
+	$whereplace.global_rotation_degrees = (randi_range(1,4)*90)
+	simple_decypher()
+
 
 func mainchain():
 	chain_length = randi_range(1,10)
@@ -369,16 +382,24 @@ func decypher():
 			secondnome += str(chain_length-double_bond)
 			secondnome += '-en-' + str(chain_length-hydroxyl_position) + '-ol'
 		else:
-			nome += 'anol'
-			secondnome += 'anol'
+			nome += '-' + str(hydroxyl_position + 1) + '-ol'
+			secondnome += '-' + str(chain_length-hydroxyl_position) + '-ol'
 	elif ene_is_here != false:
-		nome += 'ene'
-		secondnome += 'ene'
+		nome += '-' + str(double_bond) + '-ene'
+		secondnome += '-' + str(chain_length-double_bond) + '-ene'
 	else:
 		nome += 'ane'
 		secondnome += 'ane'
 	print(nome)
 	print(secondnome)
+
+func simple_decypher():
+	if hydroxyl_is_here == true:
+		nome = number_prefix(chain_length) + 'anol'
+	elif ene_is_here == true:
+		nome = number_prefix(chain_length) + 'ene'
+	else:
+		nome = number_prefix(chain_length) + 'ane'
 
 func number_prefix(a):
 	if a == 1:
@@ -427,46 +448,71 @@ func realnumber_prefix(a):
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
+	$"../characterui/LineEdit".clear()
 	print(chain_length - double_bond,double_bond)
 	if new_text == nome or new_text == secondnome:
 		print('mm')
-	if hydroxyl_is_here == true:
-		if (hydroxyl_position + 1) == (chain_length+1/2):
-			if new_text == nome or new_text == secondnome:
-				$"../characterui/LineEdit".clear()
-				variablereset()
-				newmolecule()
-		elif (hydroxyl_position + 1) > (chain_length/2):
-			if new_text == secondnome:
-				$"../characterui/LineEdit".clear()
-				variablereset()
-				newmolecule()
-		else:
-			if new_text == nome:
-				$"../characterui/LineEdit".clear()
-				variablereset()
-				newmolecule()
+	if simple == true:
 		if new_text == nome:
 			$"../characterui/LineEdit".clear()
+			correct += 1
+			$Label.text = str(correct)
 			variablereset()
-			newmolecule()
-	elif ene_is_here == true:
-		if new_text == nome and (chain_length - double_bond) > (double_bond):
+			simplemolecule()
+	else:
+		if hydroxyl_is_here == true:
+			if (hydroxyl_position + 1) == (chain_length+1/2):
+				if new_text == nome or new_text == secondnome:
+					$"../characterui/LineEdit".clear()
+					correct += 1
+					$Label.text = str(correct)
+					variablereset()
+					newmolecule()
+			elif (hydroxyl_position + 1) > (chain_length/2):
+				if new_text == secondnome:
+					$"../characterui/LineEdit".clear()
+					correct += 1
+					$Label.text = str(correct)
+					variablereset()
+					newmolecule()
+			else:
+				if new_text == nome:
+					$"../characterui/LineEdit".clear()
+					correct += 1
+					$Label.text = str(correct)
+					variablereset()
+					newmolecule()
+			if new_text == nome:
+				$"../characterui/LineEdit".clear()
+				correct += 1
+				$Label.text = str(correct)
+				variablereset()
+				newmolecule()
+		elif ene_is_here == true:
+			if new_text == nome and (chain_length - double_bond) > (double_bond):
+				$"../characterui/LineEdit".clear()
+				correct += 1
+				$Label.text = str(correct)
+				variablereset()
+				newmolecule()
+			elif new_text == secondnome and (chain_length - double_bond) < (double_bond):
+				$"../characterui/LineEdit".clear()
+				correct += 1
+				$Label.text = str(correct)
+				variablereset()
+				newmolecule()
+			elif (new_text == nome or new_text == secondnome) and (chain_length - double_bond) == (double_bond):
+				$"../characterui/LineEdit".clear()
+				correct += 1
+				$Label.text = str(correct)
+				variablereset()
+				newmolecule()
+		elif new_text == nome or new_text == secondnome:
 			$"../characterui/LineEdit".clear()
+			correct += 1
+			$Label.text = str(correct)
 			variablereset()
 			newmolecule()
-		elif new_text == secondnome and (chain_length - double_bond) < (double_bond):
-			$"../characterui/LineEdit".clear()
-			variablereset()
-			newmolecule()
-		elif (new_text == nome or new_text == secondnome) and (chain_length - double_bond) == (double_bond):
-			$"../characterui/LineEdit".clear()
-			variablereset()
-			newmolecule()
-	elif new_text == nome or new_text == secondnome:
-		$"../characterui/LineEdit".clear()
-		variablereset()
-		newmolecule()
 
 func _on_hydroxyl_groups_pressed() -> void:
 	if hydroxyl == true:
@@ -497,3 +543,16 @@ func _on_different_pressed() -> void:
 	$"../characterui/LineEdit".clear()
 	variablereset()
 	newmolecule()
+
+
+func _on_simple_pressed() -> void:
+	if simple == true:
+		$"../../Node2D3/Node2D2/simple".text = 'complex'
+		simple = false
+		variablereset()
+		newmolecule()
+	elif simple == false:
+		$"../../Node2D3/Node2D2/simple".text = 'simple'
+		simple = true
+		variablereset()
+		simplemolecule()
