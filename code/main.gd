@@ -31,6 +31,7 @@ var hydroxyl = false
 var ene = false
 var simple = false
 
+var reveal = false
 var correct = 0
 
 const carbon = preload('res://summons/carbon.tscn')
@@ -55,6 +56,7 @@ func _process(delta: float) -> void:
 			
 
 func variablereset():
+	$Label3.text = ''
 	direction = 0
 	chain_length = 0
 	double_bond = 0
@@ -76,6 +78,7 @@ func variablereset():
 	propyl = []
 	pentyl = []
 	secondnome = ''
+	reveal = false
 func newmolecule():
 	for child in placechild.get_children():
 		child.queue_free()
@@ -540,6 +543,8 @@ func _on_ene_pressed() -> void:
 
 
 func _on_different_pressed() -> void:
+	if reveal == true:
+		correct += 1
 	$"../characterui/LineEdit".clear()
 	variablereset()
 	newmolecule()
@@ -556,3 +561,29 @@ func _on_simple_pressed() -> void:
 		simple = true
 		variablereset()
 		simplemolecule()
+
+
+func _on_button_pressed() -> void:
+	reveal = true
+	print('yes')
+	correct -= 1
+	if simple == true:
+		$Label3.text = nome
+	else:
+		if hydroxyl_is_here == true:
+			if (hydroxyl_position + 1) == (chain_length+1/2):
+				$Label3.text = secondnome
+			elif (hydroxyl_position + 1) > (chain_length/2):
+				$Label3.text = secondnome
+				
+			else:
+				$Label3.text = nome
+		elif ene_is_here == true:
+			if (chain_length - double_bond) > (double_bond):
+				$Label3.text = nome
+			elif (chain_length - double_bond) < (double_bond):
+				$Label3.text = secondnome
+			elif (chain_length - double_bond) == (double_bond):
+				$Label3.text = nome
+		else:
+			$Label3.text = nome

@@ -66,6 +66,24 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 48
 text = "Correct:"
 
+[node name="Button" type="Button" parent="Node2D/main" unique_id=2142478242]
+z_index = 100
+offset_left = 1470.0
+offset_top = 851.0
+offset_right = 1765.0
+offset_bottom = 926.0
+theme_override_font_sizes/font_size = 48
+text = "reveal name"
+flat = true
+
+[node name="Label3" type="Label" parent="Node2D/main" unique_id=1729131078]
+z_index = 100
+offset_left = -310.0
+offset_top = 848.0
+offset_right = 991.0
+offset_bottom = 915.0
+theme_override_font_sizes/font_size = 48
+
 [node name="characterui" type="Node2D" parent="Node2D" unique_id=548039438]
 
 [node name="LineEdit" type="LineEdit" parent="Node2D/characterui" unique_id=660849994]
@@ -289,6 +307,7 @@ theme_override_font_sizes/font_size = 50
 text = "simple"
 flat = true
 
+[connection signal="pressed" from="Node2D/main/Button" to="Node2D/main" method="_on_button_pressed"]
 [connection signal="gui_input" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_gui_input"]
 [connection signal="text_submitted" from="Node2D/characterui/LineEdit" to="Node2D/main" method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="Node2D3/Node2D2/Node2D/increase" to="Node2D/main" method="_on_increase_pressed"]
